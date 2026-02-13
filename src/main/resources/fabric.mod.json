@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "thirdpersonnametags",
+  "version": "${version}",
+  "name": "ThirdPersonNametags",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/thirdpersonnametags/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.mubioh.thirdpersonnametags.client.ThirdPersonNametagsClient"
+    ],
+    "main": [
+      "me.mubioh.thirdpersonnametags.ThirdPersonNametags"
+    ]
+  },
+  "mixins": [
+    "thirdpersonnametags.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
