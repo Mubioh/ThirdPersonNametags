@@ -19,7 +19,12 @@ public class LivingEntityRendererMixin {
         final LivingEntity player = client.player;
 
         if (player != null && entity == player) {
-            cir.setReturnValue(MinecraftClient.isHudEnabled());
+            // Check that the HUD is enabled, the player is in third person, and no GUI/screen is currently open
+            boolean shouldShow = MinecraftClient.isHudEnabled()
+                    && !client.options.getPerspective().isFirstPerson()
+                    && client.currentScreen == null;
+
+            cir.setReturnValue(shouldShow);
         }
     }
 }
