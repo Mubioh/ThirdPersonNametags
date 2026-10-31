@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public final class NametagScaleConfig {
 
     public static final float MIN_SCALE = 0.1F;
-    public static final float MAX_SCALE = 10.0F;
+    public static final float MAX_SCALE = 5.0F;
     public static final float DEFAULT_SCALE = 1.0F;
 
     private static final Logger LOGGER = LoggerFactory.getLogger("ThirdPersonNametags");
