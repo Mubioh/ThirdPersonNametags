@@ -23,10 +23,10 @@ public class ThirdPersonNametagsClient implements ClientModInitializer {
                 literal("nametagscale")
                         .executes(ThirdPersonNametagsClient::showScales)
                         .then(literal("self")
-                                .then(argument(SCALE_ARGUMENT, FloatArgumentType.floatArg(NametagScaleConfig.MIN_SCALE, NametagScaleConfig.MAX_SCALE))
+                                .then(argument(SCALE_ARGUMENT, FloatArgumentType.floatArg())
                                         .executes(context -> applyScale(context, "Own", NametagScaleConfig::setSelfScale))))
                         .then(literal("others")
-                                .then(argument(SCALE_ARGUMENT, FloatArgumentType.floatArg(NametagScaleConfig.MIN_SCALE, NametagScaleConfig.MAX_SCALE))
+                                .then(argument(SCALE_ARGUMENT, FloatArgumentType.floatArg())
                                         .executes(context -> applyScale(context, "Other players'", NametagScaleConfig::setOthersScale))))
                         .then(literal("reset")
                                 .executes(ThirdPersonNametagsClient::resetScales))));
@@ -39,6 +39,10 @@ public class ThirdPersonNametagsClient implements ClientModInitializer {
 
     private static int applyScale(CommandContext<FabricClientCommandSource> context, String target, Consumer<Float> setter) {
         final float scale = FloatArgumentType.getFloat(context, SCALE_ARGUMENT);
+        if (scale < NametagScaleConfig.MIN_SCALE || scale > NametagScaleConfig.MAX_SCALE) {
+            context.getSource().sendError(Text.literal("Scale must be between " + NametagScaleConfig.MIN_SCALE + " and " + NametagScaleConfig.MAX_SCALE));
+            return 0;
+        }
         setter.accept(scale);
         context.getSource().sendFeedback(Text.literal(target + " nametag scale set to " + scale));
         return 1;
